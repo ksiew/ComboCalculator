@@ -6,7 +6,7 @@ app.use(cors())
 app.use(express.json())
 
 app.get("/test", (req,res)=>{
-    res.json({msg:"test resolved"})
+    res.send('test')
 })
 
 app.listen(8000, ()=>{
