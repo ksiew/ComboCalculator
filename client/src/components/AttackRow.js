@@ -1,4 +1,4 @@
-import {TableRow, TableCell } from "@mui/material";
+import {TableRow, TableCell, Box } from "@mui/material";
 import { CurrentAttackContext } from "../App";
 import { useContext, useState } from "react";
 function AttackRow(props){
@@ -6,6 +6,11 @@ function AttackRow(props){
     const [currentAttack, setCurrentAttack] = (props.player == 1) ? player1AttackContext : player2AttackContext
     const [adv, setAdv] = advContext
 
+
+    const imageStyle={
+      maxHeight: '20px',
+
+    }
     let color = {
       slow: "red",
       even: "grey",
@@ -31,15 +36,18 @@ function AttackRow(props){
       }
     }
     return (
-      <TableRow bgcolor={color[props.status]} onClick={()=> 
+      <TableRow hover bgcolor={color[props.status]} onClick={()=> 
         {if(currentAttack !== props.data){
           setCurrentAttack(props.data)
         }else{
           setCurrentAttack(null)
         }}
       }>
-        <TableCell> {<img src={props.data.image}/>}</TableCell>
-        <TableCell> {props.data.attack}</TableCell>
+        <TableCell> 
+          <Box component={"img"} src={props.data.image} sx={imageStyle}/>
+
+        </TableCell>
+        <TableCell> {props.data.input}</TableCell>
         <TableCell> {props.data.startup}</TableCell>
         <TableCell> {props.data.damage}</TableCell>
         <TableCell onClick={handleOnHit}> {props.data.onHit}</TableCell>

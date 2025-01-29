@@ -20,12 +20,19 @@ function ProfileCard(props){
     const handleChange = (char) => props.handleChange(char)
 
     const modalStyle = {
-        position: 'absolute',
+        position: 'fixed',
         height: '50%',
-        width: '70%',
         top: '25%',
         left: '15%',
+        right: '15%',
         bgcolor: 'grey',
+        border: '3'
+    }
+
+    const tableStyle = {
+        position: 'relative',
+        border: '3',
+        height: '100%'
     }
 
     let characterCards =[]
@@ -43,10 +50,10 @@ function ProfileCard(props){
                 Swap Character
             </CardContent>
         </Card>
-        <Modal open={open} onClose={handleClose}>
-            <Table sx={modalStyle}>
-                <TableHead>
-                    <TableCell sx={{textAlign:'center'}}>Characters</TableCell>
+        <Modal open={open} onClose={handleClose}  sx={modalStyle}>
+            <Table sx={tableStyle}>
+                <TableHead sx={{justifyContent: 'center'}}>
+                    <TableCell>Characters</TableCell>
                 </TableHead>
                 <TableBody>
                 {characterCards}

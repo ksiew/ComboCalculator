@@ -17,22 +17,29 @@ function App() {
   const [PrevAttack1, setPrevAttack1] = useState(null)
   const [PrevAttack2, setPrevAttack2] = useState(null)
   const [adv, setAdv] = useState(0)
-  const char1 = [
-    new Attack(require("./static/images/ed.jpg"),"2p",5,10,3,-2),
-    new Attack(require("./static/images/ed.jpg"),"5p",4,10,3,-1),
-    new Attack(require("./static/images/ed.jpg"),"5k",7,10,3,-2),
-    new Attack(require("./static/images/ed.jpg"),"2k",8,10,3,-3),
-    new Attack(require("./static/images/ed.jpg"),"2s",7,10,3,-5),
-    new Attack(require("./static/images/ed.jpg"),"5s",10,10,3,4)
-  ]
-  const char2 = [
-    new Attack(require("./static/images/ed.jpg"),"2p",3,10,3,-2),
-    new Attack(require("./static/images/ed.jpg"),"5p",2,10,3,-1),
-    new Attack(require("./static/images/ed.jpg"),"5k",5,10,3,-2),
-    new Attack(require("./static/images/ed.jpg"),"2k",5,10,3,-3),
-    new Attack(require("./static/images/ed.jpg"),"2s",6,10,3,-5),
-    new Attack(require("./static/images/ed.jpg"),"5s",12,10,3,4)
-  ]
+  const char1 = {
+    name: "ed1",
+    image:require("./static/images/ed.jpg"),
+    attacks: [new Attack(require("./static/images/ed.jpg"),"2p",5,10,3,-2),
+      new Attack(require("./static/images/ed.jpg"),"5p",4,10,3,-1),
+      new Attack(require("./static/images/ed.jpg"),"5k",7,10,3,-2),
+      new Attack(require("./static/images/ed.jpg"),"2k",8,10,3,-3),
+      new Attack(require("./static/images/ed.jpg"),"2s",7,10,3,-5),
+      new Attack(require("./static/images/ed.jpg"),"5s",10,10,3,4)
+    ]
+  }
+  const char2 = {
+      name: "ed",
+      image: require("./static/images/ed.jpg"),
+      attacks: [
+        new Attack(require("./static/images/ed.jpg"),"2p",3,10,3,-2),
+        new Attack(require("./static/images/ed.jpg"),"5p",2,10,3,-1),
+        new Attack(require("./static/images/ed.jpg"),"5k",5,10,3,-2),
+        new Attack(require("./static/images/ed.jpg"),"2k",5,10,3,-3),
+        new Attack(require("./static/images/ed.jpg"),"2s",6,10,3,-5),
+        new Attack(require("./static/images/ed.jpg"),"5s",12,10,3,4)
+      ]
+  }
   const chars =[char1, char2]
 
   const [player1, setPlayer1] = useState(char1)
@@ -65,8 +72,8 @@ function App() {
     setPrevAttack2(Player2Attack)
     setPlayer2Attack(null)
   }
-  const prevAttackInfo = (
-    <AttackInfo attack1={PrevAttack1} attack2={PrevAttack2}/>
+  const prevAttackInfo = (PrevAttack1 == null && PrevAttack2 == null) ? null : (
+    <AttackInfo attack1={PrevAttack1} attack2={PrevAttack2} adv={0}/>
   )
   return (
     <div className="App">
@@ -86,18 +93,19 @@ function App() {
                 <Button onClick={handleSwap}> swap</Button>
                 <Button onClick={handleNext}> Next </Button>
               </Grid>
-              <Grid size={13}>
-                {prevAttackInfo}
-              </Grid>
-              <Grid size={13}>
-                <AttackInfo attack1={Player1Attack} attack2={Player2Attack}/>
-              </Grid>
-              <Grid color={"black"} size = {1}>
+              <Grid size={1}>
                 <ProfileCard characters={chars} player={1}/>
               </Grid>
-              <Grid size = {5}>
+              <Grid size={11}>
+                {prevAttackInfo}
+                <AttackInfo attack1={Player1Attack} attack2={Player2Attack} adv={adv}/>
+              </Grid>
+              <Grid size={1}>
+                <ProfileCard characters={chars} player={1}/>
+              </Grid>
+              <Grid size = {6}>
                 <Card>
-                  <AttackPlanner attackData={player1} player={1}/>
+                  <AttackPlanner attackData={player1.attacks} player={1}/>
                 </Card>
 
               </Grid>
@@ -106,14 +114,11 @@ function App() {
               </Grid>
 
               {/* Player 2 */}
-              <Grid size = {5}>
+              <Grid size = {6}>
                 <Card>
-                <AttackPlanner attackData={player2} player={2}/>
+                <AttackPlanner attackData={player2.attacks} player={2} adv={adv}/>
                 </Card>
                 
-              </Grid>
-              <Grid color={"black"} size = {1}>
-                Plyaer 2
               </Grid>
               <Grid size = {4}>
 

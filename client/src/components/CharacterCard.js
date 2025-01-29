@@ -19,8 +19,8 @@ function CharacterCard(props){
     }
     return (
         <TableRow onClick={handleClick} sx={{alignContent:'center'}}>
-            <TableCell> {props.player} </TableCell>
-            <TableCell> {props.character[0].startup} </TableCell>
+            <TableCell> {props.character.name} </TableCell>
+            <TableCell> img </TableCell>
         </TableRow>
     )
 }
