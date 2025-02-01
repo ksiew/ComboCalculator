@@ -32,7 +32,8 @@ function ProfileCard(props){
     const tableStyle = {
         position: 'relative',
         border: '3',
-        height: '100%'
+        height: '100%',
+        justifyContent:'flexStart'
     }
 
     let characterCards =[]
@@ -43,24 +44,21 @@ function ProfileCard(props){
     })
 
     return(
-        <div>
+        <Box sx={{width:140}}>
         <Card onClick ={handleOpen}>
-            <CardMedia sx={{ height: 140 }} image={require("../static/images/ed.jpg")}/>
+            <CardMedia sx={{ height: 140}} image={require("../static/images/ed.jpg")}/>
             <CardContent>
                 Swap Character
             </CardContent>
         </Card>
         <Modal open={open} onClose={handleClose}  sx={modalStyle}>
             <Table sx={tableStyle}>
-                <TableHead sx={{justifyContent: 'center'}}>
-                    <TableCell>Characters</TableCell>
-                </TableHead>
                 <TableBody>
                 {characterCards}
                 </TableBody>
             </Table>
         </Modal>
-        </div>
+        </Box>
     )
 }
 

@@ -1,7 +1,8 @@
-import {ArrowBack} from '@mui/icons-material';
+import {ArrowBack, ArrowForward} from '@mui/icons-material';
 import { useContext } from "react";
 import { CurrentAttackContext } from "../App";
 import { Box, Icon, Grid2 as Grid } from '@mui/material';
+import { Attack } from './AttackContext';
 
 function AttackBox(props){      
     const style = {
@@ -10,8 +11,10 @@ function AttackBox(props){
         alignContent: 'center'
     }
 
-    let color = "white"
-    if(props.adv > 0){
+    let color = "gray"
+    if(props.adv == null){
+        color = "white"
+    } else if(props.adv > 0){
         color = "green"
     }else if(props.adv < 0){
         color = "red"
@@ -34,34 +37,17 @@ function AttackInfo(props){
         alignText: 'center'
     }
 
+    const adv = Attack.compare(attack1, attack2)
     let arrow = ""
-    if(attack1 == null){
-        if(attack2 != null){
-            arrow = "<-"
-        }
+    if (adv == 0){
+        arrow = (<Box>
+            <ArrowBack/>
+            <ArrowForward/>
+        </Box>)
+    }else if(adv > 0){
+        arrow = (<ArrowForward/>)
     }else{
-        if(attack2 == null || attack1.startup > attack2.startup){
-            arrow = "->"
-        }else if (attack2.startup == attack1.startup){
-            arrow = "<->"
-        }else{
-            arrow = "<-"
-        }
-    }
-
-    let adv = 0
-    if(attack1 == null ){
-        if(attack2 == null){
-          adv = 0
-        }else{
-          adv= attack2.onHit
-        }
-    }else{
-        if(attack2 == null){
-          adv = attack1.onHit
-        }else{
-          adv = 0
-        }
+        arrow = (<ArrowBack/>)
     }
 
     return (
@@ -73,15 +59,13 @@ function AttackInfo(props){
             <Grid size={3}>
                 <AttackBox attack={attack1} adv={adv}/>
             </Grid>
-            <Grid size={2}>
-                {/* {arrow} */}
+            <Grid size={2} sx={{justifyContent:'flex-start', alignContent:'center'}}>
+                {arrow}
             </Grid>
 
             {/* player 2 box */}
             <Grid size={3}>
-                <Box bgcolor={'grey'}>
-                <AttackBox attack={attack2} adv={(adv * -1)}/>
-                </Box>
+                <AttackBox attack={attack2} adv={(adv != null) ? (adv * -1) : null}/>
             </Grid>
             <Grid size={2}>
 

@@ -85,7 +85,9 @@ function App() {
         advContext:[adv,setAdv]
         }}>
       <header className="App-header">
-        <Box bgcolor={'blue'} onClick={testCall}>{test}</Box>
+        <Box sx={{justifyContent:'space-between', width: '100%'}}>
+            {test}
+        </Box>
       </header>
         <Box bgcolor={"blue"} height={"100%"}>
           <Grid container spacing={2} columns = {13}>
