@@ -51,7 +51,7 @@ function AttackInfo(props){
     }
 
     return (
-        <Grid container>
+        <Grid container sx={{m:1}}>
             <Grid size={2}>
 
             </Grid>

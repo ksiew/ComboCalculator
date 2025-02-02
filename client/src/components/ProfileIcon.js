@@ -44,11 +44,11 @@ function ProfileCard(props){
     })
 
     return(
-        <Box sx={{width:140}}>
+        <Box sx={{m:2}}>
         <Card onClick ={handleOpen}>
-            <CardMedia sx={{ height: 140}} image={require("../static/images/ed.jpg")}/>
+            <CardMedia sx={{ height: 100, backgroundSize:'contain'}} image={require("../static/images/ed.jpg")}/>
             <CardContent>
-                Swap Character
+                Swap
             </CardContent>
         </Card>
         <Modal open={open} onClose={handleClose}  sx={modalStyle}>

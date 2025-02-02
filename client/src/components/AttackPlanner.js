@@ -33,7 +33,7 @@ function AttackPlanner(props) {
       }
     }
     return (
-      <TableContainer sx={{height: '600px'}}>
+      <TableContainer sx={{height: '100%'}}>
 
         <Table stickyHeader>
           <TableHead>

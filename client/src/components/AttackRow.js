@@ -8,8 +8,13 @@ function AttackRow(props){
 
 
     const imageStyle={
-      maxHeight: '20px',
+      height:'100%'
 
+    }
+    const rowStyle={
+      width: '100%',
+      height: 116,
+      backgroundSize:'contain'
     }
     let color = {
       slow: "red",
@@ -36,14 +41,14 @@ function AttackRow(props){
       }
     }
     return (
-      <TableRow hover bgcolor={color[props.status]} onClick={()=> 
+      <TableRow sx={rowStyle} hover bgcolor={color[props.status]} onClick={()=> 
         {if(currentAttack !== props.data){
           setCurrentAttack(props.data)
         }else{
           setCurrentAttack(null)
         }}
       }>
-        <TableCell> 
+        <TableCell sx={{height:'100%'}}> 
           <Box component={"img"} src={props.data.image} sx={imageStyle}/>
 
         </TableCell>
