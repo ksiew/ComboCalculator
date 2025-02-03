@@ -85,7 +85,7 @@ function App() {
         player2Context:[player2, setPlayer2],
         advContext:[adv,setAdv]
         }}>
-        <Box bgcolor={"blue"} height={"720px"}>
+        <Box bgcolor={"blue"} height={"100vh"}>
           <Grid container spacing={2} height={'100%'}>
 
               {/* prev attack */}
@@ -105,7 +105,10 @@ function App() {
 
               {/* enemy attack info */}
               <Grid size = {7} >
-                <Card sx={{m:2}}>
+                <Card sx={{m:2}} width={'100%'}>
+                  <AttackInfo attack={Player2Attack}/>
+                </Card>
+                <Card sx={{m:2}} width={'100%'}>
                   <AttackInfo attack={Player2Attack}/>
                 </Card>
 
@@ -113,7 +116,9 @@ function App() {
 
               {/* results */}
               <Grid size = {2} >
-                
+                <Box bgcolor={'white'} sx={{height:'100%', width:'100%', alignText:'center', m:2}}>
+                  {adv}
+                </Box>
               </Grid>
 
               {/* player info */}
@@ -122,11 +127,12 @@ function App() {
               </Grid>
 
               {/* player attack info */}
-              <Grid size = {11}>
-                <Card sx={{m:2}}>
+              <Grid size = {9} height={'60%'}>
                 <AttackPlanner attackData={player1.attacks} player={1} adv={adv}/>
-                </Card>
-                
+              </Grid>
+
+              <Grid size = {2} alignItems={'center'} container>
+                <Box  component={"img"} src={require("./static/images/ed.jpg")}/>
               </Grid>
             </Grid>
         </Box>
