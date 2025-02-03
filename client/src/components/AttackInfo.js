@@ -1,34 +1,12 @@
 import {ArrowBack, ArrowForward} from '@mui/icons-material';
 import { useContext } from "react";
 import { CurrentAttackContext } from "../App";
-import { Box, Icon, Grid2 as Grid } from '@mui/material';
+import { Box, Icon, Grid2 as Grid , TableContainer, Table, TableRow, TableCell, TableBody, TableHead} from '@mui/material';
 import { Attack } from './AttackContext';
 
-function AttackBox(props){      
-    const style = {
-        minHeight: '80px',
-        fontSize: '24px',
-        alignContent: 'center'
-    }
-
-    let color = "gray"
-    if(props.adv == null){
-        color = "white"
-    } else if(props.adv > 0){
-        color = "green"
-    }else if(props.adv < 0){
-        color = "red"
-    }
-    return(
-        <Box border={2} bgcolor={color} sx={style}>
-            {props.attack?.input}
-        </Box>
-    )
-}
 
 function AttackInfo(props){
-    const attack1 = props.attack1
-    const attack2 = props.attack2
+    const attack = props.attack
     
     const InfoStyle = {
         position: 'fixed',
@@ -37,40 +15,30 @@ function AttackInfo(props){
         alignText: 'center'
     }
 
-    const adv = Attack.compare(attack1, attack2)
-    let arrow = ""
-    if (adv == 0){
-        arrow = (<Box>
-            <ArrowBack/>
-            <ArrowForward/>
-        </Box>)
-    }else if(adv > 0){
-        arrow = (<ArrowForward/>)
-    }else{
-        arrow = (<ArrowBack/>)
-    }
-
     return (
-        <Grid container sx={{m:1}}>
-            <Grid size={2}>
+        <TableContainer sx={{height: '100%'}}>
 
-            </Grid>
-            {/* player 1 box */}
-            <Grid size={3}>
-                <AttackBox attack={attack1} adv={adv}/>
-            </Grid>
-            <Grid size={2} sx={{justifyContent:'flex-start', alignContent:'center'}}>
-                {arrow}
-            </Grid>
-
-            {/* player 2 box */}
-            <Grid size={3}>
-                <AttackBox attack={attack2} adv={(adv != null) ? (adv * -1) : null}/>
-            </Grid>
-            <Grid size={2}>
-
-            </Grid>
-        </Grid>
+        <Table stickyHeader>
+          <TableHead>
+            <TableRow>
+              <TableCell/>
+              <TableCell> Attack</TableCell>
+              <TableCell> Startup </TableCell>
+              <TableCell> Damage </TableCell>
+              <TableCell> On Hit </TableCell>
+              <TableCell> On Block </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+          <TableCell/>
+            <TableCell> {attack?.input}</TableCell>
+            <TableCell> {attack?.startup} </TableCell>
+            <TableCell> {attack?.damage} </TableCell>
+            <TableCell> {attack?.onHit} </TableCell>
+            <TableCell> {attack?.onBlock} </TableCell>
+          </TableBody>
+        </Table>
+      </TableContainer>
     )
 }
 

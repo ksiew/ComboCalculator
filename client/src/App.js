@@ -8,6 +8,7 @@ import { createContext, useContext,useState } from 'react';
 import ProfileCard from './components/ProfileIcon';
 import axios from 'axios';
 import AttackInfo from './components/AttackInfo';
+import AttackSelector from './components/AttackSelector';
 
 export const CurrentAttackContext = createContext(null)
 
@@ -84,49 +85,49 @@ function App() {
         player2Context:[player2, setPlayer2],
         advContext:[adv,setAdv]
         }}>
-      <header className="App-header">
-        <Box sx={{justifyContent:'space-between', width: '100%'}}>
-            <Button onClick={handleSwap}> swap</Button>
-            <Button onClick={handleNext}> Next </Button>
-        </Box>
-      </header>
-        <Box bgcolor={"blue"} height={"100%"}>
-          <Grid container spacing={2} columns = {13}>
-              <Grid size={2}>
-                <ProfileCard characters={chars} player={1}/>
-              </Grid>
-              <Grid size={9}>
+        <Box bgcolor={"blue"} height={"720px"}>
+          <Grid container spacing={2} height={'100%'}>
+
+              {/* prev attack */}
+              <Grid size={12}>
                 {prevAttackInfo}
-                <AttackInfo attack1={Player1Attack} attack2={Player2Attack} adv={adv}/>
               </Grid>
+
+              {/* enemy character */}
+              <Grid size={1}>
+                <ProfileCard characters={chars} player={2}/>
+              </Grid>
+
+              {/* enemy attack */}
               <Grid size={2}>
-                <ProfileCard characters={chars} player={1}/>
+                <AttackSelector attacks={player2.attacks}/>
               </Grid>
-              <Grid size = {6}>
+
+              {/* enemy attack info */}
+              <Grid size = {7} >
                 <Card sx={{m:2}}>
-                  <AttackPlanner attackData={player1.attacks} player={1}/>
+                  <AttackInfo attack={Player2Attack}/>
                 </Card>
 
               </Grid>
-              <Grid size = {1}>
-                {/* <AttackInfo/> */}
+
+              {/* results */}
+              <Grid size = {2} >
+                
               </Grid>
 
-              {/* Player 2 */}
-              <Grid size = {6}>
+              {/* player info */}
+              <Grid size = {1} >
+                <ProfileCard characters={chars} player={1}/>
+              </Grid>
+
+              {/* player attack info */}
+              <Grid size = {11}>
                 <Card sx={{m:2}}>
-                <AttackPlanner attackData={player2.attacks} player={2} adv={adv}/>
+                <AttackPlanner attackData={player1.attacks} player={1} adv={adv}/>
                 </Card>
                 
               </Grid>
-              {/* <Grid size = {4}>
-
-              </Grid>
-              <Grid size = {5}>
-                {adv}
-                <Slider steps={1} value={adv} onChange={handleAdvChange} min={-20} max={20} defaultValue={0}/>
-              </Grid>
-              <Grid size = {5}/> */}
             </Grid>
         </Box>
       </CurrentAttackContext.Provider>

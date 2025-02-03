@@ -13,7 +13,7 @@ function AttackRow(props){
     }
     const rowStyle={
       width: '100%',
-      height: 116,
+      height: 96,
       backgroundSize:'contain'
     }
     let color = {
@@ -48,7 +48,7 @@ function AttackRow(props){
           setCurrentAttack(null)
         }}
       }>
-        <TableCell sx={{height:'100%'}}> 
+        <TableCell sx={{height:240}}> 
           <Box component={"img"} src={props.data.image} sx={imageStyle}/>
 
         </TableCell>
