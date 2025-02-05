@@ -9,6 +9,7 @@ import ProfileCard from './components/ProfileIcon';
 import axios from 'axios';
 import AttackInfo from './components/AttackInfo';
 import AttackSelector from './components/AttackSelector';
+import PrevAttack from './components/PrevAttack';
 
 export const CurrentAttackContext = createContext(null)
 
@@ -74,7 +75,7 @@ function App() {
     setPlayer2Attack(null)
   }
   const prevAttackInfo = (PrevAttack1 == null && PrevAttack2 == null) ? null : (
-    <AttackInfo attack1={PrevAttack1} attack2={PrevAttack2} adv={0}/>
+    <PrevAttack attack1={PrevAttack1} attack2={PrevAttack2} adv={0} />
   )
   return (
     <div className="App">
@@ -85,12 +86,12 @@ function App() {
         player2Context:[player2, setPlayer2],
         advContext:[adv,setAdv]
         }}>
-        <Box bgcolor={"blue"} height={"100vh"}>
-          <Grid container spacing={2} height={'100%'}>
+        <Box bgcolor={"blue"} height={"100vh"} width={"100vw"}>
+          <Grid container spacing={2} height={'100%'} width={'100%'} overflow={'hidden'}>
 
               {/* prev attack */}
               <Grid size={12}>
-                {prevAttackInfo}
+                
               </Grid>
 
               {/* enemy character */}
@@ -103,27 +104,30 @@ function App() {
                 <AttackSelector attacks={player2.attacks}/>
               </Grid>
 
+
               {/* enemy attack info */}
-              <Grid size = {7} >
-                <Card sx={{m:2}} width={'100%'}>
-                  <AttackInfo attack={Player2Attack}/>
-                </Card>
-                <Card sx={{m:2}} width={'100%'}>
-                  <AttackInfo attack={Player2Attack}/>
-                </Card>
-
-              </Grid>
-
-              {/* results */}
-              <Grid size = {2} >
-                <Box bgcolor={'white'} sx={{height:'100%', width:'100%', alignText:'center', m:2}}>
-                  {adv}
+              <Grid size = {9} >
+                <Box sx={{m:2}} width={'100%'} flexDirection={'row'} justifyContent={'flex-start'}>
+                  <Button onClick={handleNext}> next </Button>
                 </Box>
+                <Card sx={{m:2}} width={'100%'}>
+                  <AttackInfo attack={Player2Attack}/>
+                </Card>
+
               </Grid>
+
+  
 
               {/* player info */}
               <Grid size = {1} >
                 <ProfileCard characters={chars} player={1}/>
+              </Grid>
+
+              <Grid size = {2}  container>
+                <PrevAttack attack1={PrevAttack1} attack2={PrevAttack2} adv={0} height={'40%'} width={'80%'}/>
+                <Card bgcolor={'white'} sx={{height:'40%', width:'80%', alignText:'center', m:2, alignItems:'center'}}>
+                  {adv}
+                </Card>
               </Grid>
 
               {/* player attack info */}
@@ -131,9 +135,6 @@ function App() {
                 <AttackPlanner attackData={player1.attacks} player={1} adv={adv}/>
               </Grid>
 
-              <Grid size = {2} alignItems={'center'} container>
-                <Box  component={"img"} src={require("./static/images/ed.jpg")}/>
-              </Grid>
             </Grid>
         </Box>
       </CurrentAttackContext.Provider>
