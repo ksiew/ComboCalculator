@@ -7,11 +7,13 @@ import { CurrentAttackContext } from "../App";
 
 function AttackPlanner(props) {
     const {player1AttackContext, player2AttackContext, playerContext, advContext} = useContext(CurrentAttackContext)
-    const [enemyAttack, setCurrentAttack] = (props.player == 2) ? player1AttackContext : player2AttackContext
+    const [enemyAttack, setEnemyAttack] = (props.player == 2) ? player1AttackContext : player2AttackContext
+    const [currentAttack, setCurrentAttack] =  player1AttackContext
     const [adv, setAdv] = advContext
     let fastAttacks = []
     let slowAttacks = []
     let evenAttacks = []
+    let currentAttacks = []
 
     // for(let i = 0; i < props.attackData.length; i ++){
     //   evenAttacks.push(<AttackRow data = {props.attackData[i]} status={"self"} player={props.player}/>)
@@ -20,7 +22,9 @@ function AttackPlanner(props) {
 
     for(let i = 0; i < props.attackData.length; i ++){
       let status = "even"
-      if(enemyAttack !== null){
+      if(currentAttack != null && props.attackData[i].input ==  currentAttack.input){
+        currentAttacks.push(<AttackRow data = {props.attackData[i]} status={"current"} player={props.player}/>)
+      }else if(enemyAttack !== null){
         if(props.attackData[i].startup + adv < enemyAttack.startup){
           fastAttacks.push(<AttackRow data = {props.attackData[i]} status={"fast"} player={props.player}/>)
         }else if(enemyAttack !== null && props.attackData[i].startup == enemyAttack.startup){
@@ -46,6 +50,7 @@ function AttackPlanner(props) {
             </TableRow>
           </TableHead>
           <TableBody>
+            {currentAttacks}
             {fastAttacks}
             {evenAttacks}
             {slowAttacks}

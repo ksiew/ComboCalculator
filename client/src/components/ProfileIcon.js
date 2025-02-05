@@ -48,7 +48,7 @@ function ProfileCard(props){
         <Card onClick ={handleOpen}>
             <CardMedia sx={{ height: 100, backgroundSize:'contain'}} image={require("../static/images/ed.jpg")}/>
             <CardContent>
-                Swap
+                Player {props.player}
             </CardContent>
         </Card>
         <Modal open={open} onClose={handleClose}  sx={modalStyle}>

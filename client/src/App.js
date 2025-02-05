@@ -96,7 +96,7 @@ function App() {
 
               {/* enemy character */}
               <Grid size={1}>
-                <ProfileCard characters={chars} player={2}/>
+                <ProfileCard characters={chars} name={player2.name} player={2}/>
               </Grid>
 
               {/* enemy attack */}
@@ -120,7 +120,7 @@ function App() {
 
               {/* player info */}
               <Grid size = {1} >
-                <ProfileCard characters={chars} player={1}/>
+                <ProfileCard characters={chars} name={player1.name} player={1}/>
               </Grid>
 
               <Grid size = {2}  container>
@@ -134,6 +134,7 @@ function App() {
               <Grid size = {9} height={'60%'}>
                 <AttackPlanner attackData={player1.attacks} player={1} adv={adv}/>
               </Grid>
+
 
             </Grid>
         </Box>

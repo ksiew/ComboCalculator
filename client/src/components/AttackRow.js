@@ -12,14 +12,18 @@ function AttackRow(props){
 
     }
     const rowStyle={
-      width: '100%',
-      backgroundSize:'contain'
+
+    }
+
+    const currentStyle={
+      fontSize: 20
     }
     let color = {
       slow: "red",
       even: "grey",
       fast: "green",
-      self: "white"
+      self: "white",
+      current: 'yellow'
     }
 
     const handleOnHit = (ev) => {
@@ -40,8 +44,8 @@ function AttackRow(props){
       }
     }
     return (
-      <TableRow sx={rowStyle} hover bgcolor={color[props.status]} onClick={()=> 
-        {if(currentAttack !== props.data){
+      <TableRow sx={(props.status=="current")? currentStyle : rowStyle} hover bgcolor={color[props.status]} onClick={()=> 
+        {if(props.status != "current" && currentAttack !== props.data){
           setCurrentAttack(props.data)
         }else{
           setCurrentAttack(null)
@@ -51,11 +55,11 @@ function AttackRow(props){
           <Box component={"img"} src={props.data.image} sx={imageStyle}/>
 
         </TableCell> */}
-        <TableCell> {props.data.input}</TableCell>
-        <TableCell> {props.data.startup}</TableCell>
-        <TableCell> {props.data.damage}</TableCell>
-        <TableCell onClick={handleOnHit}> {props.data.onHit}</TableCell>
-        <TableCell onClick={handleOnBlock}> {props.data.onBlock}</TableCell>
+        <TableCell sx={(props.status=="current")? currentStyle : rowStyle}> {props.data.input}</TableCell>
+        <TableCell sx={(props.status=="current")? currentStyle : rowStyle}> {props.data.startup}</TableCell>
+        <TableCell sx={(props.status=="current")? currentStyle : rowStyle}> {props.data.damage}</TableCell>
+        <TableCell sx={(props.status=="current")? currentStyle : rowStyle} onClick={handleOnHit}> {props.data.onHit}</TableCell>
+        <TableCell sx={(props.status=="current")? currentStyle : rowStyle} onClick={handleOnBlock}> {props.data.onBlock}</TableCell>
       </TableRow>)
 }
 
