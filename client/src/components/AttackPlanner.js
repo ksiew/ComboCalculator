@@ -25,7 +25,7 @@ function AttackPlanner(props) {
       if(currentAttack != null && props.attackData[i].input ==  currentAttack.input){
         currentAttacks.push(<AttackRow data = {props.attackData[i]} status={"current"} player={props.player}/>)
       }else if(enemyAttack !== null){
-        if(props.attackData[i].startup + adv < enemyAttack.startup){
+        if(props.attackData[i].startup - adv < enemyAttack.startup){
           fastAttacks.push(<AttackRow data = {props.attackData[i]} status={"fast"} player={props.player}/>)
         }else if(enemyAttack !== null && props.attackData[i].startup == enemyAttack.startup){
           evenAttacks.push(<AttackRow data = {props.attackData[i]} status={"even"} player={props.player}/>)
@@ -37,7 +37,7 @@ function AttackPlanner(props) {
       }
     }
     return (
-      <TableContainer sx={{width:'90%', height: '100%', m:2}}>
+      <TableContainer sx={{width:'100%', height: '100%', m:2}}>
 
         <Table stickyHeader>
           <TableHead>

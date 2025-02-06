@@ -6,25 +6,58 @@ export class result {
             if(attack2 != null){
                 this.counter = false
                 this.winner = 2
-                this.adv = attack2.onHit
+                this.adv = attack2.onHit * -1
+                this.text = "Enemy hit"
+                this.color = "red"
+            }else{
+                this.counter = false
+                this.winner = 0
+                this.adv = 0
+                this.text = " "
+                this.color = "white"
             }
         }else{
             if(attack2 == null){
                 this.counter = false
                 this.winner = 1
                 this.adv = attack1.onHit
-            }else if (attack2.startup == attack1.startup){
+                this.text = "You hit"
+                this.color = "green"
+            }else if (attack2.startup - adv == attack1.startup){
                 this.counter = false
                 this.winner = 0
                 this.adv = 0
+                this.text = "Attacks trade"
+                this.color = "grey"
             }else{
-                this.counter = true
-                if(attack1.startup + adv > attack2.startup){
-                    this.winner = 1
-                    this.adv = attack1.onHit + 2
+                if(attack1.startup - adv < attack2.startup){
+                    if(attack2.input == "block"){
+                        this.winner = 1
+                        this.counter = false
+                        this.adv = attack1.onBlock
+                        this.text = "Enemy blocked"
+                        this.color = "white"
+                    }else{
+                        this.counter = true
+                        this.winner = 1
+                        this.adv = attack1.onHit + 2
+                        this.text = "you counter hit"
+                        this.color = "green"
+                    }
                 }else{
-                    this.winner = 2
-                    this.adv = attack2.onHit + 2
+                    if(attack1.input == "block"){
+                        this.winner = 2
+                        this.counter = false
+                        this.adv = attack2.onBlock * -1
+                        this.text = "you block"
+                        this.color = "white"
+                    }else{
+                        this.counter = true
+                        this.winner = 2
+                        this.adv = (attack2.onHit + 2) * -1
+                        this.text = "Enemy counter hit"
+                        this.color = "red"
+                    }
                 }
             }
         }
@@ -44,7 +77,6 @@ export class Attack{
     }
 
     static compare(attack1, attack2, adv=0){
-        if(attack1 == null && attack2 == null) return null
         return new result(attack1, attack2, adv)
     }
 }

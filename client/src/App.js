@@ -69,9 +69,18 @@ function App() {
   }
 
   const handleNext = (event) =>{
+    setAdv(Attack.compare(Player1Attack, Player2Attack, 0).adv)
     setPrevAttack1(Player1Attack)
     setPlayer1Attack(null)
     setPrevAttack2(Player2Attack)
+    setPlayer2Attack(null)
+  }
+
+  const handleClear = (event) => {
+    setAdv(0)
+    setPrevAttack1(null)
+    setPlayer1Attack(null)
+    setPrevAttack2(null)
     setPlayer2Attack(null)
   }
   const prevAttackInfo = (PrevAttack1 == null && PrevAttack2 == null) ? null : (
@@ -107,9 +116,6 @@ function App() {
 
               {/* enemy attack info */}
               <Grid size = {9} >
-                <Box sx={{m:2}} width={'100%'} flexDirection={'row'} justifyContent={'flex-start'}>
-                  <Button onClick={handleNext}> next </Button>
-                </Box>
                 <Card sx={{m:2}} width={'100%'}>
                   <AttackInfo attack={Player2Attack}/>
                 </Card>
@@ -123,15 +129,17 @@ function App() {
                 <ProfileCard characters={chars} name={player1.name} player={1}/>
               </Grid>
 
-              <Grid size = {2}  container>
-                <PrevAttack attack1={PrevAttack1} attack2={PrevAttack2} adv={0} height={'40%'} width={'80%'}/>
-                <Card bgcolor={'white'} sx={{height:'40%', width:'80%', alignText:'center', m:2, alignItems:'center'}}>
-                  {adv}
-                </Card>
+              <Grid size = {2}  container flexDirection={'column'} flexWrap={'nowrap'}>
+                <PrevAttack attack1={PrevAttack1} attack2={PrevAttack2} adv={0} sx={{ height:'40%'}}/>
+                <PrevAttack attack1={Player1Attack} attack2={Player2Attack} adv={adv} sx={{ height:'40%'}}/>
+                <Box sx={{mt:2}}display={'flex'} width={'100%'} flexDirection={'row'} justifyContent={'space-evenly'}>
+                  <Button variant={'contained'} onClick={handleNext}> next </Button>
+                  <Button variant={'contained'} onClick={handleClear}> clear </Button>
+                </Box>
               </Grid>
 
               {/* player attack info */}
-              <Grid size = {9} height={'60%'}>
+              <Grid size = {9} display={'flex'} height={'60%'}>
                 <AttackPlanner attackData={player1.attacks} player={1} adv={adv}/>
               </Grid>
 
