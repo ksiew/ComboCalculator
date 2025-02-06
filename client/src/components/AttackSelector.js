@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia , Modal, Table, TableRow, TableCell, TableHead, TableBody} from "@mui/material";
+import { Box, Card, CardContent, CardMedia , Modal, Table, TableRow, TableCell, TableHead, TableBody, Grid2 as Grid} from "@mui/material";
 import { useState, useContext } from "react";
 import { CurrentAttackContext } from "../App";
 
@@ -12,10 +12,9 @@ function AttackCard(props){
         props.setOpen(false)
     }
     return (
-        <TableRow onClick={handleClick} sx={{alignContent:'center'}}>
-            <TableCell> {props.attack.input} </TableCell>
-            <TableCell> img </TableCell>
-        </TableRow>
+        <Grid onClick={handleClick} height={300} sx={{alignContent:'center', m:2}}>
+            <Box component={'img'} src={props.attack.image}/>
+        </Grid>
     )
 }
 
@@ -28,8 +27,8 @@ function AttackSelector(props){
 
     const modalStyle = {
         position: 'fixed',
-        height: '50%',
-        top: '25%',
+        height: '80%',
+        top: '10%',
         left: '15%',
         right: '15%',
         bgcolor: 'grey',
@@ -59,11 +58,9 @@ function AttackSelector(props){
             </CardContent>
         </Card>
         <Modal open={open} onClose={handleClose}  sx={modalStyle}>
-            <Table sx={tableStyle}>
-                <TableBody>
+            <Grid  container sx={{overflowY:'scroll'}} height={'100%'}>
                 {attackCards}
-                </TableBody>
-            </Table>
+            </Grid>
         </Modal>
         </Box>
     )

@@ -83,6 +83,17 @@ function App() {
     setPrevAttack2(null)
     setPlayer2Attack(null)
   }
+
+  const handleClearPrev = (event) =>{
+    setAdv(0)
+    setPrevAttack1(null)
+    setPrevAttack2(null)
+  }
+
+  const handleClearCurr = (event) =>{
+    setPlayer1Attack(null)
+    setPlayer2Attack(null)
+  }
   const prevAttackInfo = (PrevAttack1 == null && PrevAttack2 == null) ? null : (
     <PrevAttack attack1={PrevAttack1} attack2={PrevAttack2} adv={0} />
   )
@@ -130,8 +141,8 @@ function App() {
               </Grid>
 
               <Grid size = {2}  container flexDirection={'column'} flexWrap={'nowrap'}>
-                <PrevAttack attack1={PrevAttack1} attack2={PrevAttack2} adv={0} sx={{ height:'40%'}}/>
-                <PrevAttack attack1={Player1Attack} attack2={Player2Attack} adv={adv} sx={{ height:'40%'}}/>
+                <PrevAttack attack1={PrevAttack1} attack2={PrevAttack2} adv={0} sx={{ height:'40%'}} onClick={handleClearPrev}/>
+                <PrevAttack attack1={Player1Attack} attack2={Player2Attack} adv={adv} sx={{ height:'40%'}} onClick={handleClearCurr}/>
                 <Box sx={{mt:2}}display={'flex'} width={'100%'} flexDirection={'row'} justifyContent={'space-evenly'}>
                   <Button variant={'contained'} onClick={handleNext}> next </Button>
                   <Button variant={'contained'} onClick={handleClear}> clear </Button>
