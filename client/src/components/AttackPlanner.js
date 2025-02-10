@@ -9,7 +9,7 @@ function AttackPlanner(props) {
     const {player1AttackContext, player2AttackContext, playerContext, advContext} = useContext(CurrentAttackContext)
     const [enemyAttack, setEnemyAttack] = (props.player == 2) ? player1AttackContext : player2AttackContext
     const [currentAttack, setCurrentAttack] =  player1AttackContext
-    const [adv, setAdv] = advContext
+    const adv = props.adv
     let fastAttacks = []
     let slowAttacks = []
     let evenAttacks = []

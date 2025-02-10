@@ -17,7 +17,19 @@ export class result {
                 this.color = "white"
             }
         }else{
-            if(attack2 == null){
+            if(attack1 != null && attack1.startup <= adv){
+                this.counter = true
+                this.winner = 1
+                this.adv = attack1.onHit
+                this.text = "You Punish hit"
+                this.color = "green"
+            }else if(attack2 != null && attack2.startup <= (-1 * adv)){
+                this.counter = true
+                this.winner = 2
+                this.adv = attack2.onHit
+                this.text = "Enemy Punish hit"
+                this.color = "red"
+            }else if(attack2 == null){
                 this.counter = false
                 this.winner = 1
                 this.adv = attack1.onHit

@@ -9,7 +9,7 @@ import ProfileCard from './components/ProfileIcon';
 import axios from 'axios';
 import AttackInfo from './components/AttackInfo';
 import AttackSelector from './components/AttackSelector';
-import PrevAttack from './components/PrevAttack';
+import ResultDisplay from './components/ResultDisplay';
 
 export const CurrentAttackContext = createContext(null)
 
@@ -18,7 +18,8 @@ function App() {
   const [Player2Attack, setPlayer2Attack] = useState(null)
   const [PrevAttack1, setPrevAttack1] = useState(null)
   const [PrevAttack2, setPrevAttack2] = useState(null)
-  const [adv, setAdv] = useState(0)
+  const [PrevResult, setPrevResult] = useState(Attack.compare(null, null, 0))
+  const [Result, setResult] = useState(Attack.compare(null, null, 0))
   const char1 = {
     name: "ed1",
     image:require("./static/images/ed.jpg"),
@@ -55,10 +56,6 @@ function App() {
     })
   }
 
-  const handleAdvChange = (event, newValue) => {
-    setAdv(newValue);
-  };
-
   const handleSwap = (event) =>{
     let tempChar = player1
     let tempAttack = Player1Attack
@@ -69,7 +66,8 @@ function App() {
   }
 
   const handleNext = (event) =>{
-    setAdv(Attack.compare(Player1Attack, Player2Attack, 0).adv)
+    setPrevResult(Attack.compare(Player1Attack, Player2Attack, PrevResult.adv))
+    setResult(Attack.compare(null, null, 0))
     setPrevAttack1(Player1Attack)
     setPlayer1Attack(null)
     setPrevAttack2(Player2Attack)
@@ -77,7 +75,8 @@ function App() {
   }
 
   const handleClear = (event) => {
-    setAdv(0)
+    setPrevResult(Attack.compare(null, null, 0))
+    setResult(Attack.compare(null, null, 0))
     setPrevAttack1(null)
     setPlayer1Attack(null)
     setPrevAttack2(null)
@@ -85,26 +84,34 @@ function App() {
   }
 
   const handleClearPrev = (event) =>{
-    setAdv(0)
+    setPrevResult(Attack.compare(null, null, 0))
     setPrevAttack1(null)
     setPrevAttack2(null)
   }
 
   const handleClearCurr = (event) =>{
+    setResult(Attack.compare(null, null, 0))
     setPlayer1Attack(null)
     setPlayer2Attack(null)
   }
-  const prevAttackInfo = (PrevAttack1 == null && PrevAttack2 == null) ? null : (
-    <PrevAttack attack1={PrevAttack1} attack2={PrevAttack2} adv={0} />
-  )
+
+  const handleSetPlayer1Attack = (attack) =>{
+    setPlayer1Attack(attack)
+    setResult(Attack.compare(attack, Player2Attack, PrevResult.adv))
+  }
+
+  const handleSetPlayer2Attack = (attack) =>{
+    setPlayer2Attack(attack)
+    setResult(Attack.compare(Player1Attack, attack, PrevResult.adv))
+  }
+ 
   return (
     <div className="App">
       <CurrentAttackContext.Provider value={{
-        player1AttackContext:[Player1Attack,setPlayer1Attack],
-        player2AttackContext:[Player2Attack,setPlayer2Attack],
+        player1AttackContext:[Player1Attack,handleSetPlayer1Attack],
+        player2AttackContext:[Player2Attack,handleSetPlayer2Attack],
         player1Context: [player1, setPlayer1],
         player2Context:[player2, setPlayer2],
-        advContext:[adv,setAdv]
         }}>
         <Box bgcolor={"blue"} height={"100vh"} width={"100vw"}>
           <Grid container spacing={2} height={'100%'} width={'100%'} overflow={'hidden'}>
@@ -141,8 +148,10 @@ function App() {
               </Grid>
 
               <Grid size = {2}  container flexDirection={'column'} flexWrap={'nowrap'}>
-                <PrevAttack attack1={PrevAttack1} attack2={PrevAttack2} adv={0} sx={{ height:'40%'}} onClick={handleClearPrev}/>
-                <PrevAttack attack1={Player1Attack} attack2={Player2Attack} adv={adv} sx={{ height:'40%'}} onClick={handleClearCurr}/>
+                Prev
+                <ResultDisplay result={PrevResult}  sx={{ height:'40%'}} onClick={handleClearPrev}/>
+                Curr:
+                <ResultDisplay result={Result} sx={{ height:'40%'}} onClick={handleClearCurr}/>
                 <Box sx={{mt:2}}display={'flex'} width={'100%'} flexDirection={'row'} justifyContent={'space-evenly'}>
                   <Button variant={'contained'} onClick={handleNext}> next </Button>
                   <Button variant={'contained'} onClick={handleClear}> clear </Button>
@@ -151,7 +160,7 @@ function App() {
 
               {/* player attack info */}
               <Grid size = {9} display={'flex'} height={'60%'}>
-                <AttackPlanner attackData={player1.attacks} player={1} adv={adv}/>
+                <AttackPlanner attackData={player1.attacks} player={1} adv={PrevResult.adv}/>
               </Grid>
 
 

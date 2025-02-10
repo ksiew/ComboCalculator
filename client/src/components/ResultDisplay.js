@@ -27,15 +27,11 @@ function AttackBox(props){
     )
 }
 
-function PrevAttack(props){
-    const attack1 = props.attack1
-    const attack2 = props.attack2
+function ResultDisplay(props){
 
-    const result = Attack.compare(attack1, attack2, props.adv)
-    console.log(result)
     const style = {
         fontSize: 20,
-        backgroundColor: result.color,
+        backgroundColor: props.result.color,
         alignContent: 'center',
         textAlign: 'center',
         height: '80%',
@@ -44,15 +40,14 @@ function PrevAttack(props){
 
     return (
         <Box height={'20%'} container textAlign={'start'}>
-            prev
             <Card container sx={style}>
-                {result.text}
+                {props.result.text}
                 <br/>
-                {(result.winner == 2) ? "" : "+"}
-                {result.adv}
+                {(props.result.winner == 2) ? "" : "+"}
+                {props.result.adv}
             </Card>
         </Box>
     )
 }
 
-export default PrevAttack
+export default ResultDisplay
