@@ -76,6 +76,10 @@ export class result {
         this.attack1= attack1
         this.attack2= attack2
     }
+
+    static function (attack1, attack2, adv=0){
+        return new result(attack1, attack2, adv)
+    }
 }
 
 export class Attack{
