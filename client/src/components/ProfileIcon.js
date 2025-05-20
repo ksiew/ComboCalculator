@@ -36,6 +36,7 @@ function ProfileCard(props){
         justifyContent:'flexStart'
     }
 
+    console.log(props.character)
     let characterCards =[]
     props.characters.forEach((char)=>{
         characterCards.push(

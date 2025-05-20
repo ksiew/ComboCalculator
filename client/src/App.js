@@ -10,6 +10,7 @@ import axios from 'axios';
 import AttackInfo from './components/AttackInfo';
 import AttackSelector from './components/AttackSelector';
 import ResultDisplay from './components/ResultDisplay';
+import { useEffect } from 'react';
 
 export const CurrentAttackContext = createContext(null)
 
@@ -20,6 +21,7 @@ function App() {
   const [PrevAttack2, setPrevAttack2] = useState(null)
   const [PrevResult, setPrevResult] = useState(Attack.compare(null, null, 0))
   const [Result, setResult] = useState(Attack.compare(null, null, 0))
+  const [chars, setChars] = useState([])
   const char1 = {
     name: "ed1",
     image:require("./static/images/ed.jpg"),
@@ -42,16 +44,21 @@ function App() {
       new Attack(require("./static/images/ed.jpg"),"5s",10,10,3,4)
     ]
   }
-  let chars = []
-  axios.get('http://localhost:8000/characters', {
-    params: {
-      game: "SF6"
-    }
-  }).then((res)=>{
-    chars = (res.data)
-    console.log(chars)
-  })
+
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/characters', {
+      params: {
+        game: "SF6"
+      }
+    }).then((res)=>{
+      setChars(res.data)
+    })
+  }, []);
+
+  console.log(chars)
   
+  // chars = [char1, char2]
 
   const [player1, setPlayer1] = useState(char1)
   const [player2, setPlayer2] = useState(char2)
