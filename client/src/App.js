@@ -46,19 +46,21 @@ function App() {
   }
 
 
-  useEffect(() => {
-    axios.get('http://localhost:8000/characters', {
-      params: {
-        game: "SF6"
-      }
-    }).then((res)=>{
-      setChars(res.data)
-    })
-  }, []);
+  // useEffect(() => {
+  //   axios.get('http://localhost:8000/characters', {
+  //     params: {
+  //       game: "SF6"
+  //     }
+  //   }).then((res)=>{
+  //     setChars(res.data)
+  //   })
+  // }, []);
 
   console.log(chars)
   
-  // chars = [char1, char2]
+  useEffect(() => {
+    setChars([char1, char2])
+  }, []);
 
   const [player1, setPlayer1] = useState(char1)
   const [player2, setPlayer2] = useState(char2)

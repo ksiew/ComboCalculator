@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia , Modal, Table, TableRow, TableCell, TableHead, TableBody} from "@mui/material";
+import { Box, Card, CardContent, CardMedia , Modal, Button, Grid2 as Grid} from "@mui/material";
 import { useState } from "react";
 import CharacterCard from "./CharacterCard";
 
@@ -53,11 +53,9 @@ function ProfileCard(props){
             </CardContent>
         </Card>
         <Modal open={open} onClose={handleClose}  sx={modalStyle}>
-            <Table sx={tableStyle}>
-                <TableBody>
+            <Grid container spacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={tableStyle}>
                 {characterCards}
-                </TableBody>
-            </Table>
+            </Grid>
         </Modal>
         </Box>
     )
