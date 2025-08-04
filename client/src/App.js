@@ -1,7 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import AttackRow from './components/AttackRow'
-import AttackPlanner from './components/AttackPlanner';
+import AttackTable from './components/AttackTable';
 import { Attack } from './components/AttackContext';
 import { Card,Box, Container, Grid2 as Grid, Slider, Button} from '@mui/material'
 import { createContext, useContext,useState } from 'react';
@@ -170,7 +169,7 @@ function App() {
 
               {/* player attack info */}
               <Grid size = {9} display={'flex'} height={'60%'}>
-                <AttackPlanner attackData={player1.attacks} player={1} adv={PrevResult.adv}/>
+                <AttackTable attackData={player1.attacks} player={1} adv={PrevResult.adv}/>
               </Grid>
 
 

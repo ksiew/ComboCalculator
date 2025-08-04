@@ -1,6 +1,37 @@
 import { Box, Card, CardContent, CardMedia , Modal, Button, Grid2 as Grid} from "@mui/material";
-import { useState } from "react";
-import CharacterCard from "./CharacterCard";
+import { useState, useContext } from "react";
+import { CurrentAttackContext } from "../App";
+
+
+function CharacterCard(props){
+    const {player1Context, player2Context} = useContext(CurrentAttackContext)
+    const [player1, setPlayer1] = player1Context
+    const [player2, setPlayer2] = player2Context
+
+    const cardStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column'
+    }
+
+    const handleClick = () =>{
+        if(props.player == 1){
+            setPlayer1(props.character)
+        }else{
+            setPlayer2(props.character)
+        }
+        props.setOpen(false)
+    }
+    return (
+        <Grid size = {3} onClick={handleClick} sx={cardStyle} >
+            <Box fullwidth component={'img'} src={props.character.image}/>
+            <Button variant={'contained'}>
+                {props.character.name} 
+            </Button>
+        </Grid>
+    )
+}
 
 function CharacterSelectModal(){
     const [open, setOpen] = useState(false)

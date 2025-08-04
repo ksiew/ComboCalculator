@@ -1,38 +1,31 @@
 var fs = require('fs')
 
 const char = "Ed"
-const table = `5	4	8	16	+4	-2	LH	Sp SA	14
-5MP	600	8	5	15	27	+3(+5)	-3(-1)	LH	SA TC	18 SA / 18(20) TC
-5HP	800	12	4	20	35	+2	-2	LH	TC	19
-5LK	300	5	3	11	18	+2	-4	LH	Sp SA	13
-5MK	500	6	4	13(15)	22(24)	+5	+1	LH	Sp SA TC	16
-5HK	900	12	4	19	34	+2	-4	LH	-	
-2LP	300	4	3	8	14	+5	-1	LH	Chn Sp SA	13
-2MP	600	8	3	20	30	+1	-4	LH	Sp SA	15
-2HP	400x2	9	3(4)3	20	38	+6	-7	LH	Sp SA (2nd)	26(13)
-2LK	200	5	3	8	15	+3	-1	L	Chn	
-2MK	600	9	3	16(18)	27(29)	+4	-4	L	TC	15
-2HK	900	11	3	24	37	KD +31	-12	L	-	
-j.LP	300	5	6	3 land	-	+5(+10)	+1(+6)	H	TC	
-j.MP	700	8	5	3 land	-	+11(+13)	+5(+7)	H	TC	
-j.HP	800	10	7	3 land	-	+9(+15)	+5(+11)	H	-	
-j.LK	300	5	6	3 land	-	+2(+9)	-2(+5)	H	-	
-j.MK	500	7	5	3 land	-	+9(+13)	+5(+9)	H	-	
-j.HK	400x2	10	2(1)8	3 land	-	+11(+15)	+7(+11)	H,H	-	
-6HP	900	16	4	20	39	+1	-4	LH	TC	21
-6MK	600	20	3	19	41	+2	-2	H	TC	17
-4HK	900	14	4	17(19)	34(36)	+3	-3	LH	-	
-3HK	900	14	9	18(22)	40(44)	HKD +31(+39)	-10(-2)	L	-	
-5MP~MP	400	17	5	20	41	-4 / -24 whiff	-10 / -30 whiff	LH	Sp SA	48~50 (17)
-5HP~HP	400x2	17	4(3)4	17	44	KD +55(+45)	-3 / (-10/-23)	LH	-	
-5MK~HK	400	12	3	24	38	KD +33	-8	LH	Sp SA	41
-2MK~HK	400(320)	15	1	20(24)	35(39)	+4 / -18 (whiff)	-9* / -24 (whiff)	LH	Sp SA	41~42 (14*)
-6HP~HP	500	13	3	26	41	-2	-11	LH	TC	43~49
-6HP~HP~HP	370,380
-(296,304)	7	3(5)3	27	44	KD +40	-16	LH	-	
-6MK~MK	600	14	3	26	42	KD +29	-14	LH	-	
-j.LP~j.MK	500	6	5	3 land	-	+12	+8	LH	-	
-j.MP~j.HP	700	12	5	3 land	-	KD ~	-	-	-	`
+const table = `236P	400	14	12	8	33	+3	-5	LH	6P* SA3	16 (SA) / 20 (6P)
+236PP	200x2	14	12	7	32	KD +43	-2	LH	6P* SA2 SA3	14 (SA) / 22 (6P)
+236P~6P	600	12	-	30	42	+3	-8	LH	SA3	4
+236PP~6P	400x2	12	-	28	40	KD +46~	-2	LH	SA2 SA3	10
+623LP	900	10	8	23(28)	45(40)	KD +38	-13	LH	SA3	24*
+623MP	1000	14	6	32	51	KD +39	-20	LH	SA3	22*
+623HP	1200	16	6	33	54	KD +38	-21	LH	SA3	22*
+623PP	800x2	13	6	36(41)	54	KD +18	-28	LH	-	
+214LP	200x2,400 (800)	11	3(3)3(6)4	14	43	+3	-5	LH	SA3	30
+214MP	250x2,400 (900)	13	2(7)3(9)3	16(24)	52(60)	KD +39	-12	LH	SA3	39
+214HP	250x2,600 (1100)	15	2(11)2(6)2	23(26)	60(63)	KD +40	-12	LH	SA3	39
+214PP	150x8,200 (1400)	13	1(4)1(3)1(3)
+1(3)1(3)1(8)2	20	64	KD +42	-4	LH	SA2 SA3	61 / 85 (54 block)
+236LK	800	11+5	4	26(24)	45(43)	+1	-6	LH	SA3 Sp*	7 SA / 17* KK
+236[LK]	800,200	26+5	5	24	59~148	KD +61	+4	LH	SA3 (1st)	6
+236MK	900	15+5	4	26(25)	49(48)	+3	-6	LH	SA3 Sp*	7 SA / 19* KK
+236[MK]	800,200	30+5	5	24	63~148	KD +61	+4	LH	SA3 (1st)	6
+236HK	800	12+5	8	18	42	KD +51(+63)	-	-	SA3 Sp*	7
+236[HK]	800,200	30+5	10	19	63~148	KD +56(68)	-	-	SA3 (1st)	6
+236KK	400x2
+(600x2)	25	4	32	60	KD +61	+4	LH	SA2 SA3 (1st)	4
+4KK	-	-	-	31	31	-	-	-	-	
+5/6KK	-	-	-	31	31	-	-	-	6P*	
+5/6KK~6P	600	11+11	3	20	33	KD +38	-4	LH	SA3	12
+5/6KK~dl.6P	600	13+11	3	20	33	KD +50	-6	LH	SA3	12(10*)`
 
 /**
  * 0: input
@@ -50,12 +43,15 @@ table.split("\n").forEach((str) => {
     const dict = {
         input: data[0],
         image: "ed.json",
+        startup: data[2],
         damage: data[1],
         onHit: data[6],
         onBlock: data[7]
     }
-    const fileName = `data/SF6/${char}/${data[0]}.json`
-    const dictstring = JSON.stringify(dict)
-    fs.writeFile(fileName, dictstring, (err) => console.log());
+    if(!(data[0].includes("~") || data[0].includes("[") || data[0].includes("j."))){
+        const fileName = `data/SF6/${char}/${data[0]}.json`
+        const dictstring = JSON.stringify(dict)
+        fs.writeFile(fileName, dictstring, (err) => console.log(err));
+    }
 })
 

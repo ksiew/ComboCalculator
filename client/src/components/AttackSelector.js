@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia , Modal, Table, TableRow, TableCell, TableHead, TableBody, Grid2 as Grid} from "@mui/material";
+import { Box, Card, CardContent, CardMedia , Modal, Grid2 as Grid, Tooltip} from "@mui/material";
 import { useState, useContext } from "react";
 import { CurrentAttackContext } from "../App";
 
@@ -11,9 +11,17 @@ function AttackCard(props){
         setPlayer2ttack(props.attack)
         props.setOpen(false)
     }
+    const cardStyle = {
+        display: 'inline-grid', 
+        alignContent:'center', 
+        m:2,
+        textAlign: 'center'
+    }
+
     return (
-        <Grid onClick={handleClick} height={300} sx={{alignContent:'center', m:2}}>
-            <Box component={'img'} src={props.attack.image}/>
+        <Grid onClick={handleClick} height={300} sx={cardStyle}>
+                <Box component={'img'} src={props.attack.image}/>
+                {props.attack.input}
         </Grid>
     )
 }

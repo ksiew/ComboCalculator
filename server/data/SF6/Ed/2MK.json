@@ -1,1 +1,1 @@
-{"input":"2MK","image":"ed.json","damage":"600","onHit":"+4","onBlock":"-4"}
+{"input":"2MK","image":"ed.json","startup":"9","damage":"600","onHit":"+8","onBlock":"-1"}
