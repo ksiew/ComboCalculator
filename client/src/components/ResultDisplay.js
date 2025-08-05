@@ -1,8 +1,7 @@
-import {ArrowBack, ArrowForward, Height, Margin} from '@mui/icons-material';
+import {ArrowBack, ArrowForward, Height, Margin, Straighten, Timer, DoDisturb} from '@mui/icons-material';
 import { useContext } from "react";
 import { CurrentAttackContext } from "../App";
-import { Box, Icon, Grid2 as Grid, Card } from '@mui/material';
-import { Attack } from './AttackContext';
+import { Box, Icon, Grid2 as Grid, Card, Tooltip } from '@mui/material';
 
 function AttackBox(props){      
     const style = {
@@ -35,16 +34,43 @@ function ResultDisplay(props){
         alignContent: 'center',
         textAlign: 'center',
         height: '80%',
-        m:2
+        m:2,
+        padding: 1
     }
+
+    const distance = ((true) ? 
+        <Tooltip title="Attack may be out of range">
+            <Straighten/>
+        </Tooltip>
+        : ""
+    )
+
+    const active = ((true) ? 
+        <Tooltip title="Data may change based on when attack hits">
+            <Timer/>
+        </Tooltip>
+        : ""
+    )
+
+    const cancel = ((true) ? 
+        <Tooltip title="Attack may be cancelable">
+            <DoDisturb/>
+        </Tooltip>
+        : ""
+    )
 
     return (
         <Box height={'20%'} container textAlign={'start'}>
-            <Card container sx={style}>
+            <Card container sx={style} onClick={props.onClick}>
                 {props.result.text}
                 <br/>
                 {(props.result.winner == 2) ? "" : "+"}
                 {props.result.adv}
+                <Box>
+                    {distance}
+                    {cancel}
+                    {active}
+                </Box>
             </Card>
         </Box>
     )

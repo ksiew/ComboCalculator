@@ -1,5 +1,4 @@
-import { Box, TableContainer, Table, TableHead, TableBody, TableFooter, TableRow, TableCell, Tab, Tabs, Button  } from "@mui/material";
-import { Attack } from "./AttackContext";
+import { Box, TableContainer, Table, TableHead, TableBody, TableFooter, TableRow, TableCell, Tab, Tabs, Button, TableSortLabel  } from "@mui/material";
 import useDrag from 'react-dnd';
 import { useContext } from "react";
 import { CurrentAttackContext } from "../App";

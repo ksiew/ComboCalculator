@@ -46,9 +46,10 @@ table.split("\n").forEach((str) => {
         startup: data[2],
         damage: data[1],
         onHit: data[6],
-        onBlock: data[7]
+        onBlock: data[7],
+        distance: 0
     }
-    if(!(data[0].includes("~") || data[0].includes("[") || data[0].includes("j."))){
+    if(!(data[0].includes("~") || data[0].includes("[") || data[0].includes("j."))){ 
         const fileName = `data/SF6/${char}/${data[0]}.json`
         const dictstring = JSON.stringify(dict)
         fs.writeFile(fileName, dictstring, (err) => console.log(err));
